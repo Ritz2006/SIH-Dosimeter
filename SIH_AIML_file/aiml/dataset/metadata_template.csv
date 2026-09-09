@@ -1,0 +1,2 @@
+image_id,dose_ppmh,phone,lighting,temperature,RH,batch,capture_session,badge_id,notes,image_path
+example_0001,0,Phone_A,LED,25.0,50.0,BATCH_A,SESSION_01,BADGE_01,prototype/example,dataset/raw/example_0001.jpg
