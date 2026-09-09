@@ -1,0 +1,340 @@
+/* ============================================================
+   H2S GUARD — design tokens
+   The palette is drawn from the physical artifact: a colorimetric
+   strip that runs pale straw -> amber -> rust-brown as cumulative
+   dose rises. Amber is the brand accent because it IS the sensor's
+   own language, not a decorative choice. Green/rust are reserved
+   for status only (valid/expired, low/high exposure).
+   ============================================================ */
+
+:root {
+  /* base surfaces — a control-room charcoal-navy, not pure black */
+  --bg: #10161a;
+  --bg-raised: #161d22;
+  --surface: #1a2227;
+  --surface-2: #212b31;
+  --border: #2b3841;
+  --border-strong: #3a4952;
+
+  /* accents, grounded in the strip's own colour progression */
+  --amber-100: #f6dfa6;
+  --amber-400: #e3a73b;
+  --amber-600: #c98a26;
+  --rust-500: #c15a38;
+  --rust-600: #a8492c;
+  --green-500: #5fa776;
+  --green-600: #468a5d;
+
+  /* text */
+  --text-primary: #edefea;
+  --text-secondary: #a9b4bb;
+  --text-muted: #74838c;
+
+  /* type */
+  --font-ui: 'IBM Plex Sans', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', monospace;
+
+  --radius-sm: 3px;
+  --radius-md: 6px;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--amber-400);
+  color: #10161a;
+}
+
+/* focus visibility, kept simple and visible */
+:focus-visible {
+  outline: 2px solid var(--amber-400);
+  outline-offset: 2px;
+}
+
+/* ---------- layout shell ---------- */
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  min-height: 100vh;
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+}
+
+.main-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.view {
+  flex: 1;
+  padding: 28px 32px 48px;
+  max-width: 920px;
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .view {
+    padding: 20px 16px 96px;
+  }
+}
+
+/* ---------- typography helpers ---------- */
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.page-sub {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+/* ---------- shared components ---------- */
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.panel-accent {
+  border-left: 3px solid var(--amber-400);
+}
+
+.hairline {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 16px 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.btn-primary {
+  background: var(--amber-400);
+  color: #1a1204;
+}
+
+.btn-primary:hover {
+  background: var(--amber-100);
+}
+
+.btn-secondary {
+  background: transparent;
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  border-color: var(--amber-400);
+  color: var(--amber-400);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* status pill */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.pill-valid {
+  background: rgba(95, 167, 118, 0.14);
+  color: var(--green-500);
+}
+.pill-valid .pill-dot {
+  background: var(--green-500);
+}
+
+.pill-expired {
+  background: rgba(193, 90, 56, 0.14);
+  color: var(--rust-500);
+}
+.pill-expired .pill-dot {
+  background: var(--rust-500);
+}
+
+.pill-pending {
+  background: rgba(169, 180, 187, 0.12);
+  color: var(--text-secondary);
+}
+.pill-pending .pill-dot {
+  background: var(--text-secondary);
+}
+
+/* hazard stripe — a structural device borrowed from real hazard
+   signage, used only to mark a boundary that matters (an expired
+   badge, a blocked action) rather than as decoration everywhere */
+.hazard-stripe {
+  height: 6px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--amber-400),
+    var(--amber-400) 10px,
+    #1a1204 10px,
+    #1a1204 20px
+  );
+}
+
+.hazard-stripe.danger {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--rust-500),
+    var(--rust-500) 10px,
+    #1a1204 10px,
+    #1a1204 20px
+  );
+}
+
+/* form fields */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.field label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.field input,
+.field select {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--amber-400);
+}
+
+/* simple table, numeric columns right-aligned per engineering
+   convention rather than the generic centred grid */
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.data-table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table td {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table td.num,
+.data-table th.num {
+  text-align: right;
+  font-family: var(--font-mono);
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tr:hover td {
+  background: rgba(227, 167, 59, 0.03);
+}
