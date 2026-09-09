@@ -1,0 +1,20 @@
+// Placeholder exposure readings. Each reading is what the backend
+// would log after the ML/colour-analysis service returns a dose
+// estimate for a photographed strip. confidence is a placeholder
+// for whatever your calibration model reports.
+
+export const readings = [
+  { id: 'R-101', workerId: 'W-001', badgeId: 'H2S-00127', date: '2026-08-29', doseEstimate: 7.8, confidence: 0.9 },
+  { id: 'R-102', workerId: 'W-001', badgeId: 'H2S-00127', date: '2026-08-30', doseEstimate: 23.5, confidence: 0.84 },
+  { id: 'R-103', workerId: 'W-001', badgeId: 'H2S-00127', date: '2026-08-31', doseEstimate: 11.2, confidence: 0.91 },
+  { id: 'R-104', workerId: 'W-001', badgeId: 'H2S-00127', date: '2026-09-01', doseEstimate: 18.7, confidence: 0.87 },
+  { id: 'R-201', workerId: 'W-002', badgeId: 'H2S-00128', date: '2026-08-28', doseEstimate: 4.1, confidence: 0.93 },
+  { id: 'R-202', workerId: 'W-002', badgeId: 'H2S-00128', date: '2026-08-31', doseEstimate: 9.6, confidence: 0.89 },
+  { id: 'R-301', workerId: 'W-003', badgeId: 'H2S-00129', date: '2026-08-10', doseEstimate: 31.2, confidence: 0.78 }
+]
+
+export function readingsForWorker(workerId) {
+  return readings
+    .filter((r) => r.workerId === workerId)
+    .sort((a, b) => a.date.localeCompare(b.date))
+}
